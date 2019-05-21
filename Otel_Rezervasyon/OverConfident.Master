@@ -1,0 +1,193 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="OverConfident.Master.cs" Inherits="Otel_Rezervasyon.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>OverConfident Otel Rezervasyon</title>
+	 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic|Playfair+Display:400,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'/>
+	<!-- Font Bitiş-->
+	<!-- Css Başlangıç -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+	<link href="css/cs-select.css" rel="stylesheet" />
+	<link href="css/font-awesome.min.css" rel="stylesheet" />
+	<link href="css/freepik.hotels.css" rel="stylesheet" />
+	<link href="css/owl.carousel.css" rel="stylesheet" />
+	<link href="css/owl.theme.css" rel="stylesheet" />
+	<link href="css/owl.transitions.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
+	<!-- Css Bitiş -->
+	<!-- JS Başlangıç -->
+	<script src="js/modernizr.custom.min.js"></script>
+	<!-- JS Bitiş -->
+	<asp:ContentPlaceHolder ID="head" runat="server">
+	   
+	</asp:ContentPlaceHolder>
+</head>
+<body>
+		<form id="form1" runat="server">
+	<div class="preloader"></div>  <!-- Giris Loader İntro -->
+	<!-- Header Başlangıç -->
+		<header class="header transp sticky"> 
+			<nav class="navbar navbar-inverse">
+				<div class="container">
+					<!-- NavBar Başlangıç -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="default.aspx"><img src="images/logo3x.png" height="77" alt="logo"></a>
+					</div>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav navbar-right">
+							<li  class="active"><a href="default.aspx">Anasayfa</a></li>
+							
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Odalar <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="standart.aspx">Standart</a></li>
+									<li><a href="full.aspx">Full</a></li>
+									<li><a href="fullfull.aspx">Full+Full</a></li>
+								</ul>
+							</li>
+							<li><a href="galeri.aspx">Galeri</a></li>
+							<li><a href="iletisim.aspx">İletisim</a></li>
+						</ul>
+					</div><!-- NavBar Bitiş -->
+					<div class="mg-search-box-cont pull-right">
+						<a href="#" class="mg-search-box-trigger"><i class="fa fa-search"></i></a>
+						<div class="mg-search-box">
+
+								<input type="text" name="s" class="form-control" placeholder="Aranacak Kelime..."/>
+								<button type="submit" class="btn btn-main"><i class="fa fa-search"></i></button>
+				
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>		
+		<!-- Header Bitiş-->
+
+		<!-- İçerik Başlangıç -->
+		
+	   <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+		
+	   </asp:ContentPlaceHolder>
+		
+	   <!-- İçerik Bitiş -->
+	  
+
+
+	<!-- Footer Başlangıç -->
+	<footer class="mg-footer">
+			<div class="mg-footer-widget">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 col-sm-6">
+							<div class="widget">
+								<h2 class="mg-widget-title">Bizimle İletişime Geçin</h2>
+								<address>
+									<strong>BİLGE ADAM</strong><br>
+									Deneme mah. Test sok. No:1<br>
+									Bakırköy / ISTANBUL
+								</address>
+				
+								<p>
+									+90(555)000 00 00<br>
+									+90(555)000 00 00
+								</p>
+				
+								<p>
+									<a href="mailto:#">Overconfident@gmail.com</a>
+								</p>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="widget">
+								<h2 class="mg-widget-title">Instagram</h2>
+								<ul class="mg-instagram">
+									<li><a href="#"><img src="images/ins-01.png" alt=""></a></li>
+									<li><a href="#"><img src="images/ins-02.png" alt=""></a></li>
+									<li><a href="#"><img src="images/ins-03.png" alt=""></a></li>
+									<li><a href="#"><img src="images/ins-04.png" alt=""></a></li>
+									<li><a href="#"><img src="images/ins-05.png" alt=""></a></li>
+									<li><a href="#"><img src="images/ins-06.png" alt=""></a></li>
+									<li><a href="#"><img src="images/ins-07.png" alt=""></a></li>
+									<li><a href="#"><img src="images/ins-08.png" alt=""></a></li>
+									<li><a href="#"><img src="images/ins-09.png" alt=""></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="widget">
+								<h2 class="mg-widget-title">Haberler</h2>
+								<p>Yılbaşı indirimlerini kaçırmayın!.</p>
+							
+									<p>
+										<input type="email" class="form-control" placeholder="Email Adresi">
+									</p>
+									<input type="submit" class="btn btn-main" value="Abone Ol">
+						
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="widget">
+								<h2 class="mg-widget-title">Sosyal Medya</h2>
+								<p>Sosyal Medyadan bizi takip edebilirsiniz.</p>
+								<ul class="mg-footer-social">
+									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+									<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+									<li><a href="#"><i class="fa fa-rss"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mg-copyright">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<ul class="mg-footer-nav">
+								<li><a href="default.aspx">Anasayfa</a></li>
+								<li><a href="standart.aspx">Odalar</a></li>
+								<li><a href="galeri.aspx">Galeri</a></li>
+								<li><a href="iletisim.aspx">İletişim</a></li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<p>&copy; 2017 OverConfident Design. All rights reserved.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	<!-- Footer Bitiş -->
+			</form>
+		<!-- JS Başlangıç -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/owl.carousel.min.js"></script>
+		<script src="js/jssor.slider.mini.js"></script>
+		<script src="js/classie.js"></script>
+		<script src="js/selectFx.js"></script>
+		<script src="js/bootstrap-datepicker.min.js"></script>
+		<script src="js/starrr.min.js"></script>
+		<script src="js/nivo-lightbox.min.js"></script>
+		<script src="js/jquery.shuffle.min.js"></script>
+		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script src="js/gmaps.min.js"></script>
+		<script src="js/jquery.parallax-1.1.3.js"></script>
+		<script src="js/script.js"></script>
+		<!-- JS Bitiş -->
+  
+</body>
+</html>

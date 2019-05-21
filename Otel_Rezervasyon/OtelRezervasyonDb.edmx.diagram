@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ce763bfdf7fb4da9876f3cbcbdcf24bd" Name="Diagram1">
+        <EntityTypeShape EntityType="OtelRezervasyonModel.Hizmet" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OtelRezervasyonModel.Iletisim" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OtelRezervasyonModel.Misafir" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OtelRezervasyonModel.Musteri" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OtelRezervasyonModel.Oda" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OtelRezervasyonModel.Rezervasyon" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OtelRezervasyonModel.RezervasyonOdaMisafir" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="OtelRezervasyonModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="OtelRezervasyonModel.FK_Iletisim_Musteri" ManuallyRouted="false" />
+        <AssociationConnector Association="OtelRezervasyonModel.FK_RezervasyonOdaMisafir_Misafir" ManuallyRouted="false" />
+        <AssociationConnector Association="OtelRezervasyonModel.FK_Rezervasyon_Musteri" ManuallyRouted="false" />
+        <AssociationConnector Association="OtelRezervasyonModel.FK_RezervasyonOdaMisafir_Oda" ManuallyRouted="false" />
+        <AssociationConnector Association="OtelRezervasyonModel.FK_RezervasyonOdaMisafir_Rezervasyon" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OtelRezervasyonModel.RezervasyonDetay" Width="1.5" PointX="5.25" PointY="2.75" />
+        <AssociationConnector Association="OtelRezervasyonModel.FK_RezervasyonDetay_Hizmet" />
+        <AssociationConnector Association="OtelRezervasyonModel.FK_RezervasyonDetay_Oda" />
+        <AssociationConnector Association="OtelRezervasyonModel.FK_RezervasyonDetay_Rezervasyon" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

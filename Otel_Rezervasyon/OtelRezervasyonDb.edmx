@@ -1,0 +1,591 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OtelRezervasyonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Hizmet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HizmetAdi" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ucret" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Iletisim">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="MusteriID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Misafir">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Soyad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tc" Type="char" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Soyad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tc" Type="char" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Oda">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OdaNo" Type="smallint" Nullable="false" />
+          <Property Name="MaxKapasite" Type="tinyint" Nullable="false" />
+          <Property Name="Fiyat" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rezervasyon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusteriID" Type="int" />
+          <Property Name="GirisTarih" Type="date" />
+          <Property Name="CikisTarih" Type="date" />
+        </EntityType>
+        <EntityType Name="RezervasyonDetay">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RezervasyonID" Type="int" Nullable="false" />
+          <Property Name="OdaID" Type="int" Nullable="false" />
+          <Property Name="HizmetID" Type="int" Nullable="false" />
+          <Property Name="ToplamFiyat" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RezervasyonOdaMisafir">
+          <Key>
+            <PropertyRef Name="RezervasyonID" />
+            <PropertyRef Name="OdaID" />
+            <PropertyRef Name="MisafirID" />
+          </Key>
+          <Property Name="RezervasyonID" Type="int" Nullable="false" />
+          <Property Name="OdaID" Type="int" Nullable="false" />
+          <Property Name="MisafirID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Iletisim_Musteri">
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="1" />
+          <End Role="Iletisim" Type="Self.Iletisim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteri">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Iletisim">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervasyon_Musteri">
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="0..1" />
+          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteri">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rezervasyon">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonDetay_Hizmet">
+          <End Role="Hizmet" Type="Self.Hizmet" Multiplicity="1" />
+          <End Role="RezervasyonDetay" Type="Self.RezervasyonDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hizmet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonDetay">
+              <PropertyRef Name="HizmetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonDetay_Oda">
+          <End Role="Oda" Type="Self.Oda" Multiplicity="1" />
+          <End Role="RezervasyonDetay" Type="Self.RezervasyonDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oda">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonDetay">
+              <PropertyRef Name="OdaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonDetay_Rezervasyon">
+          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="1" />
+          <End Role="RezervasyonDetay" Type="Self.RezervasyonDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rezervasyon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonDetay">
+              <PropertyRef Name="RezervasyonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonOdaMisafir_Misafir">
+          <End Role="Misafir" Type="Self.Misafir" Multiplicity="1" />
+          <End Role="RezervasyonOdaMisafir" Type="Self.RezervasyonOdaMisafir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Misafir">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonOdaMisafir">
+              <PropertyRef Name="MisafirID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonOdaMisafir_Oda">
+          <End Role="Oda" Type="Self.Oda" Multiplicity="1" />
+          <End Role="RezervasyonOdaMisafir" Type="Self.RezervasyonOdaMisafir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oda">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonOdaMisafir">
+              <PropertyRef Name="OdaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonOdaMisafir_Rezervasyon">
+          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="1" />
+          <End Role="RezervasyonOdaMisafir" Type="Self.RezervasyonOdaMisafir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rezervasyon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonOdaMisafir">
+              <PropertyRef Name="RezervasyonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OtelRezervasyonModelStoreContainer">
+          <EntitySet Name="Hizmet" EntityType="Self.Hizmet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Iletisim" EntityType="Self.Iletisim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Misafir" EntityType="Self.Misafir" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Musteri" EntityType="Self.Musteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Oda" EntityType="Self.Oda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rezervasyon" EntityType="Self.Rezervasyon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RezervasyonDetay" EntityType="Self.RezervasyonDetay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RezervasyonOdaMisafir" EntityType="Self.RezervasyonOdaMisafir" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Iletisim_Musteri" Association="Self.FK_Iletisim_Musteri">
+            <End Role="Musteri" EntitySet="Musteri" />
+            <End Role="Iletisim" EntitySet="Iletisim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervasyon_Musteri" Association="Self.FK_Rezervasyon_Musteri">
+            <End Role="Musteri" EntitySet="Musteri" />
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonDetay_Hizmet" Association="Self.FK_RezervasyonDetay_Hizmet">
+            <End Role="Hizmet" EntitySet="Hizmet" />
+            <End Role="RezervasyonDetay" EntitySet="RezervasyonDetay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonDetay_Oda" Association="Self.FK_RezervasyonDetay_Oda">
+            <End Role="Oda" EntitySet="Oda" />
+            <End Role="RezervasyonDetay" EntitySet="RezervasyonDetay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonDetay_Rezervasyon" Association="Self.FK_RezervasyonDetay_Rezervasyon">
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+            <End Role="RezervasyonDetay" EntitySet="RezervasyonDetay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonOdaMisafir_Misafir" Association="Self.FK_RezervasyonOdaMisafir_Misafir">
+            <End Role="Misafir" EntitySet="Misafir" />
+            <End Role="RezervasyonOdaMisafir" EntitySet="RezervasyonOdaMisafir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonOdaMisafir_Oda" Association="Self.FK_RezervasyonOdaMisafir_Oda">
+            <End Role="Oda" EntitySet="Oda" />
+            <End Role="RezervasyonOdaMisafir" EntitySet="RezervasyonOdaMisafir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonOdaMisafir_Rezervasyon" Association="Self.FK_RezervasyonOdaMisafir_Rezervasyon">
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+            <End Role="RezervasyonOdaMisafir" EntitySet="RezervasyonOdaMisafir" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OtelRezervasyonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Hizmet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HizmetAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ucret" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RezervasyonDetays" Relationship="OtelRezervasyonModel.FK_RezervasyonDetay_Hizmet" FromRole="Hizmet" ToRole="RezervasyonDetay" />
+        </EntityType>
+        <EntityType Name="Iletisim">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefon" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MusteriID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Musteri" Relationship="Self.FK_Iletisim_Musteri" FromRole="Iletisim" ToRole="Musteri" />
+        </EntityType>
+        <EntityType Name="Misafir">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tc" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RezervasyonOdaMisafir" Relationship="Self.FK_RezervasyonOdaMisafir_Misafir" FromRole="Misafir" ToRole="RezervasyonOdaMisafir" />
+        </EntityType>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tc" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Iletisim" Relationship="Self.FK_Iletisim_Musteri" FromRole="Musteri" ToRole="Iletisim" />
+          <NavigationProperty Name="Rezervasyon" Relationship="Self.FK_Rezervasyon_Musteri" FromRole="Musteri" ToRole="Rezervasyon" />
+        </EntityType>
+        <EntityType Name="Oda">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OdaNo" Type="Int16" Nullable="false" />
+          <Property Name="MaxKapasite" Type="Byte" Nullable="false" />
+          <Property Name="Fiyat" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RezervasyonOdaMisafir" Relationship="Self.FK_RezervasyonOdaMisafir_Oda" FromRole="Oda" ToRole="RezervasyonOdaMisafir" />
+          <NavigationProperty Name="RezervasyonDetays" Relationship="OtelRezervasyonModel.FK_RezervasyonDetay_Oda" FromRole="Oda" ToRole="RezervasyonDetay" />
+        </EntityType>
+        <EntityType Name="Rezervasyon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusteriID" Type="Int32" />
+          <Property Name="GirisTarih" Type="DateTime" Precision="0" />
+          <Property Name="CikisTarih" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Musteri" Relationship="Self.FK_Rezervasyon_Musteri" FromRole="Rezervasyon" ToRole="Musteri" />
+          <NavigationProperty Name="RezervasyonOdaMisafir" Relationship="Self.FK_RezervasyonOdaMisafir_Rezervasyon" FromRole="Rezervasyon" ToRole="RezervasyonOdaMisafir" />
+          <NavigationProperty Name="RezervasyonDetays" Relationship="OtelRezervasyonModel.FK_RezervasyonDetay_Rezervasyon" FromRole="Rezervasyon" ToRole="RezervasyonDetay" />
+        </EntityType>
+        <EntityType Name="RezervasyonOdaMisafir">
+          <Key>
+            <PropertyRef Name="RezervasyonID" />
+            <PropertyRef Name="OdaID" />
+            <PropertyRef Name="MisafirID" />
+          </Key>
+          <Property Name="RezervasyonID" Type="Int32" Nullable="false" />
+          <Property Name="OdaID" Type="Int32" Nullable="false" />
+          <Property Name="MisafirID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Misafir" Relationship="Self.FK_RezervasyonOdaMisafir_Misafir" FromRole="RezervasyonOdaMisafir" ToRole="Misafir" />
+          <NavigationProperty Name="Oda" Relationship="Self.FK_RezervasyonOdaMisafir_Oda" FromRole="RezervasyonOdaMisafir" ToRole="Oda" />
+          <NavigationProperty Name="Rezervasyon" Relationship="Self.FK_RezervasyonOdaMisafir_Rezervasyon" FromRole="RezervasyonOdaMisafir" ToRole="Rezervasyon" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Iletisim_Musteri">
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="1" />
+          <End Role="Iletisim" Type="Self.Iletisim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteri">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Iletisim">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonOdaMisafir_Misafir">
+          <End Role="Misafir" Type="Self.Misafir" Multiplicity="1" />
+          <End Role="RezervasyonOdaMisafir" Type="Self.RezervasyonOdaMisafir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Misafir">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonOdaMisafir">
+              <PropertyRef Name="MisafirID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rezervasyon_Musteri">
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="0..1" />
+          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteri">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Rezervasyon">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonOdaMisafir_Oda">
+          <End Role="Oda" Type="Self.Oda" Multiplicity="1" />
+          <End Role="RezervasyonOdaMisafir" Type="Self.RezervasyonOdaMisafir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oda">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonOdaMisafir">
+              <PropertyRef Name="OdaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonOdaMisafir_Rezervasyon">
+          <End Role="Rezervasyon" Type="Self.Rezervasyon" Multiplicity="1" />
+          <End Role="RezervasyonOdaMisafir" Type="Self.RezervasyonOdaMisafir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rezervasyon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonOdaMisafir">
+              <PropertyRef Name="RezervasyonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OtelRezervasyonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Hizmet" EntityType="Self.Hizmet" />
+          <EntitySet Name="Iletisim" EntityType="Self.Iletisim" />
+          <EntitySet Name="Misafir" EntityType="Self.Misafir" />
+          <EntitySet Name="Musteri" EntityType="Self.Musteri" />
+          <EntitySet Name="Oda" EntityType="Self.Oda" />
+          <EntitySet Name="Rezervasyon" EntityType="Self.Rezervasyon" />
+          <EntitySet Name="RezervasyonOdaMisafir" EntityType="Self.RezervasyonOdaMisafir" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Iletisim_Musteri" Association="Self.FK_Iletisim_Musteri">
+            <End Role="Musteri" EntitySet="Musteri" />
+            <End Role="Iletisim" EntitySet="Iletisim" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonOdaMisafir_Misafir" Association="Self.FK_RezervasyonOdaMisafir_Misafir">
+            <End Role="Misafir" EntitySet="Misafir" />
+            <End Role="RezervasyonOdaMisafir" EntitySet="RezervasyonOdaMisafir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rezervasyon_Musteri" Association="Self.FK_Rezervasyon_Musteri">
+            <End Role="Musteri" EntitySet="Musteri" />
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonOdaMisafir_Oda" Association="Self.FK_RezervasyonOdaMisafir_Oda">
+            <End Role="Oda" EntitySet="Oda" />
+            <End Role="RezervasyonOdaMisafir" EntitySet="RezervasyonOdaMisafir" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonOdaMisafir_Rezervasyon" Association="Self.FK_RezervasyonOdaMisafir_Rezervasyon">
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+            <End Role="RezervasyonOdaMisafir" EntitySet="RezervasyonOdaMisafir" />
+          </AssociationSet>
+          <EntitySet Name="RezervasyonDetays" EntityType="OtelRezervasyonModel.RezervasyonDetay" />
+          <AssociationSet Name="FK_RezervasyonDetay_Hizmet" Association="OtelRezervasyonModel.FK_RezervasyonDetay_Hizmet">
+            <End Role="Hizmet" EntitySet="Hizmet" />
+            <End Role="RezervasyonDetay" EntitySet="RezervasyonDetays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonDetay_Oda" Association="OtelRezervasyonModel.FK_RezervasyonDetay_Oda">
+            <End Role="Oda" EntitySet="Oda" />
+            <End Role="RezervasyonDetay" EntitySet="RezervasyonDetays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RezervasyonDetay_Rezervasyon" Association="OtelRezervasyonModel.FK_RezervasyonDetay_Rezervasyon">
+            <End Role="Rezervasyon" EntitySet="Rezervasyon" />
+            <End Role="RezervasyonDetay" EntitySet="RezervasyonDetays" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="RezervasyonDetay">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RezervasyonID" Type="Int32" Nullable="false" />
+          <Property Name="OdaID" Type="Int32" Nullable="false" />
+          <Property Name="HizmetID" Type="Int32" Nullable="false" />
+          <Property Name="ToplamFiyat" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Hizmet" Relationship="OtelRezervasyonModel.FK_RezervasyonDetay_Hizmet" FromRole="RezervasyonDetay" ToRole="Hizmet" />
+          <NavigationProperty Name="Oda" Relationship="OtelRezervasyonModel.FK_RezervasyonDetay_Oda" FromRole="RezervasyonDetay" ToRole="Oda" />
+          <NavigationProperty Name="Rezervasyon" Relationship="OtelRezervasyonModel.FK_RezervasyonDetay_Rezervasyon" FromRole="RezervasyonDetay" ToRole="Rezervasyon" />
+        </EntityType>
+        <Association Name="FK_RezervasyonDetay_Hizmet">
+          <End Type="OtelRezervasyonModel.Hizmet" Role="Hizmet" Multiplicity="1" />
+          <End Type="OtelRezervasyonModel.RezervasyonDetay" Role="RezervasyonDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hizmet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonDetay">
+              <PropertyRef Name="HizmetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonDetay_Oda">
+          <End Type="OtelRezervasyonModel.Oda" Role="Oda" Multiplicity="1" />
+          <End Type="OtelRezervasyonModel.RezervasyonDetay" Role="RezervasyonDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oda">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonDetay">
+              <PropertyRef Name="OdaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RezervasyonDetay_Rezervasyon">
+          <End Type="OtelRezervasyonModel.Rezervasyon" Role="Rezervasyon" Multiplicity="1" />
+          <End Type="OtelRezervasyonModel.RezervasyonDetay" Role="RezervasyonDetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rezervasyon">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RezervasyonDetay">
+              <PropertyRef Name="RezervasyonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OtelRezervasyonModelStoreContainer" CdmEntityContainer="OtelRezervasyonEntities">
+          <EntitySetMapping Name="Hizmet">
+            <EntityTypeMapping TypeName="OtelRezervasyonModel.Hizmet">
+              <MappingFragment StoreEntitySet="Hizmet">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HizmetAdi" ColumnName="HizmetAdi" />
+                <ScalarProperty Name="Ucret" ColumnName="Ucret" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Iletisim">
+            <EntityTypeMapping TypeName="OtelRezervasyonModel.Iletisim">
+              <MappingFragment StoreEntitySet="Iletisim">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Misafir">
+            <EntityTypeMapping TypeName="OtelRezervasyonModel.Misafir">
+              <MappingFragment StoreEntitySet="Misafir">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Tc" ColumnName="Tc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musteri">
+            <EntityTypeMapping TypeName="OtelRezervasyonModel.Musteri">
+              <MappingFragment StoreEntitySet="Musteri">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Tc" ColumnName="Tc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Oda">
+            <EntityTypeMapping TypeName="OtelRezervasyonModel.Oda">
+              <MappingFragment StoreEntitySet="Oda">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OdaNo" ColumnName="OdaNo" />
+                <ScalarProperty Name="MaxKapasite" ColumnName="MaxKapasite" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rezervasyon">
+            <EntityTypeMapping TypeName="OtelRezervasyonModel.Rezervasyon">
+              <MappingFragment StoreEntitySet="Rezervasyon">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+                <ScalarProperty Name="GirisTarih" ColumnName="GirisTarih" />
+                <ScalarProperty Name="CikisTarih" ColumnName="CikisTarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RezervasyonOdaMisafir">
+            <EntityTypeMapping TypeName="OtelRezervasyonModel.RezervasyonOdaMisafir">
+              <MappingFragment StoreEntitySet="RezervasyonOdaMisafir">
+                <ScalarProperty Name="RezervasyonID" ColumnName="RezervasyonID" />
+                <ScalarProperty Name="OdaID" ColumnName="OdaID" />
+                <ScalarProperty Name="MisafirID" ColumnName="MisafirID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OtelRezervasyonModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RezervasyonDetays">
+            <EntityTypeMapping TypeName="OtelRezervasyonModel.RezervasyonDetay">
+              <MappingFragment StoreEntitySet="RezervasyonDetay">
+                <ScalarProperty Name="ToplamFiyat" ColumnName="ToplamFiyat" />
+                <ScalarProperty Name="HizmetID" ColumnName="HizmetID" />
+                <ScalarProperty Name="OdaID" ColumnName="OdaID" />
+                <ScalarProperty Name="RezervasyonID" ColumnName="RezervasyonID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
